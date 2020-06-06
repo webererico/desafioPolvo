@@ -59,6 +59,7 @@
     <!-- /.card-body -->
 </div>
 <!-- /.card -->
+{{ $companies->links() }}
 </div>
 <!-- /.col -->
 </div>
