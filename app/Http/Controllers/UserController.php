@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -76,13 +77,10 @@ class UserController extends Controller
         $user->email = $request->input('email');
         if($request->input('password') != null){
             $user->password =  Hash::make($request->input('password'));
-        }else{
-            
-            
         }
         $user->update();
         if(isset($user)){
-            return view('/home');
+		return redirect()->route('home');
         }
     }
 

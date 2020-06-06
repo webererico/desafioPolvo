@@ -22,13 +22,13 @@
               <!-- text input -->
               <div class="form-group">
                 <label>Name</label>
-                <input type="text" name="name" class="form-control" placeholder="{{$user->name}}">
+                <input type="text" value="{{$user->name}}"   name="name" class="form-control" placeholder="{{$user->name}}">
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label>Email</label>
-                <input type="email" name="email" class="form-control" placeholder="{{$user->email}}" >
+                <input type="email" value="{{$user->email}}" name="email" class="form-control" placeholder="{{$user->email}}" >
               </div>
             </div>
             <div class="col-sm-6">
@@ -36,13 +36,16 @@
                 <label>Password</label>
                 <input type="password" name="password" class="form-control" placeholder="If you dont want to change, let this input empty" >
               </div>
+
             </div>
             <div class="col-sm-6">
               <label>Action</label>
-              <button type="button" class="btn btn-block bg-gradient-warning">Save</button>
+     	              <button type="submit" class="btn btn-block bg-gradient-warning">Save</button>
+
             </div>
           </div>
-        </form>
+
+	   </form>
       </div>
       <!-- /.card-body -->
     </div>
