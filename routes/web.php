@@ -17,7 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
 Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -42,7 +41,3 @@ Route::post('/admin/companies/store', 'CompanyController@store')->name('company.
 Route::get('/admin/companies/edit/{id}', 'CompanyController@edit')->name('company.edit');
 Route::post('/admin/companies/update/{id}', 'CompanyController@update')->name('company.update');
 Route::get('/admin/companies/delete/{id}', 'CompanyController@destroy')->name('company.destroy');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

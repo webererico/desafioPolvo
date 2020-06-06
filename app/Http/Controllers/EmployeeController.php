@@ -29,7 +29,6 @@ class EmployeeController extends Controller
     {
         $companies = Company::all();
         return view('employee.form', compact('companies'));
-
     }
 
     /**
@@ -40,6 +39,14 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        $validateData = $request->validate([
+            'firstName'  => 'required',
+            'lastName' => 'required',
+            'company_id ' => 'required',
+            
+        ]);
+
+
         $employee = new Employee();
         $employee->firstName = $request->input('firstName');
         $employee->lastName = $request->input('lastName');
@@ -47,10 +54,9 @@ class EmployeeController extends Controller
         $employee->phone = $request->input('phone');
         $employee->company_id = $request->input('company_id');
         $employee->save();
-        if(isset($employee)){
+        if (isset($employee)) {
             return redirect()->route('employee.index');
         }
-
     }
 
     /**
@@ -70,9 +76,11 @@ class EmployeeController extends Controller
      * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function edit(Employee $employee)
+    public function edit($id)
     {
-        //
+        $employee = Employee::find($id);
+        $companies = Company::all();
+        return view('employee.edit', compact('employee', 'companies'));
     }
 
     /**
@@ -82,9 +90,25 @@ class EmployeeController extends Controller
      * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employee $employee)
+    public function update(Request $request, $id)
     {
-        //
+        $validateData = $request->validate([
+            'firstName'  => 'required',
+            'lastName' => 'required',
+            'company_id ' => 'required',
+            
+        ]);
+
+        $employee = Employee::find($id);
+        $employee->firstName = $request->input('firstName');
+        $employee->lastName = $request->input('lastName');
+        $employee->email = $request->input('email');
+        $employee->phone = $request->input('phone');
+        $employee->company_id = $request->input('company_id');
+        $employee->update();
+        if (isset($employee)) {
+            return redirect()->route('employee.index');
+        }
     }
 
     /**
@@ -97,7 +121,7 @@ class EmployeeController extends Controller
     {
         $employee = Employee::find($id);
         $employee->delete();
-        if(isset($employee)){
+        if (isset($employee)) {
             return redirect('/admin/employees');
         }
     }

@@ -36,21 +36,26 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
+        $validateData = $request->validate([
+            'name'  => 'required',
+            'email' => 'required|email',
+            'logo ' => 'dimensions:min_width=100, min_height=100',
+            
+        ]);
+
         $company = new Company();
         $company->name = $request->input('name');
         $company->email = $request->input('email');
         $company->website = $request->input('website');
         $logo = $request->file('logo');
-        if(isset($logo)){
+        if (isset($logo)) {
             $path = $request->file('logo')->store('images', 'public');
             $company->logo = $path;
             $company->save();
         }
-        if(isset($company)){
+        if (isset($company)) {
             return redirect('/admin/companies');
         }
-        
-
     }
 
     /**
@@ -70,9 +75,10 @@ class CompanyController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
+    public function edit($id)
     {
-        //
+        $company = Company::find($id);
+        return view('company.edit', compact('company'));
     }
 
     /**
@@ -82,9 +88,29 @@ class CompanyController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'  => 'required|',
+            'email' => 'required|email',
+            'logo ' => 'dimensions:min_width=100, min_height=100',
+            
+        ]);
+
+        $company = Company::find($id);
+        $oldLogo = $company->logo;
+        $company->name = $request->input('name');
+        $company->email = $request->input('email');
+        $company->website = $request->input('website');
+        $logo = $request->file('logo');
+        if (isset($logo) && ($logo!= $oldLogo)) {
+            $path = $request->file('logo')->store('images', 'public');
+            $company->logo = $path;
+            $company->save();
+        }
+        if (isset($company)) {
+            return redirect('/admin/companies');
+        }
     }
 
     /**
@@ -97,7 +123,7 @@ class CompanyController extends Controller
     {
         $company = Company::find($id);
         $company->delete();
-        if(isset($company)){
+        if (isset($company)) {
             return redirect('/admin/companies');
         }
     }

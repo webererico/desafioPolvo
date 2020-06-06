@@ -70,7 +70,7 @@
             <div class="content">
                 <div class="title m-b-md">
                     <img src="https://polvolouco.com.br/themes/polvoLouco/images/polvo-louco-fa5922cf.svg">
-                    Desafio Polvo Louco
+                    Desafio Polvo
                 </div>
 
                 <div class="links">
